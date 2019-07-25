@@ -1,0 +1,3 @@
+en:
+  site_settings:
+    discourse_elasticsearch_enabled: "Enable discourse-elasticsearch plugin"
