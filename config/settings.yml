@@ -2,3 +2,15 @@ plugins:
   discourse_elasticsearch_enabled:
     default: true
     client: true
+  elasticsearch_autocomplete_enabled:
+    default: false
+    client: true
+  elasticsearch_server_ip:
+    default: ''
+    client: true
+  elasticsearch_server_port:
+    default: ''
+    client: true
+  algolia_discourse_username:
+    default: 'system'
+    client: false
