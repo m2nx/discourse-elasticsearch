@@ -1,16 +1,16 @@
 plugins:
-  discourse_elasticsearch_enabled:
+  elasticsearch_enabled:
     default: true
     client: true
   elasticsearch_autocomplete_enabled:
     default: false
     client: true
   elasticsearch_server_ip:
-    default: ''
+    default: 'localhost'
     client: true
   elasticsearch_server_port:
-    default: ''
+    default: '9200'
     client: true
-  algolia_discourse_username:
+  elasticsearch_discourse_username:
     default: 'system'
     client: false

@@ -18,7 +18,7 @@ module DiscourseElasticsearch
       return if user.blank? || !guardian.can_see?(user)
 
       user_record = to_user_record(user)
-      add_elasticsearch_single_info(USERS_INDEX, user_record, user_id)
+      add_elasticsearch_users(USERS_INDEX, user_record, user_id)
     end
 
     def self.to_user_record(user)
@@ -166,7 +166,7 @@ module DiscourseElasticsearch
       tag_names.each do |tag_name|
         tag = Tag.find_by_name(tag_name)
         if tag && should_index_tag?(tag)
-          add_elasticsearch_single_info(TAGS_INDEX, to_tag_record(tag), tag.id)
+          add_elasticsearch_users(TAGS_INDEX, to_tag_record(tag), tag.id)
         end
       end
     end
@@ -175,14 +175,23 @@ module DiscourseElasticsearch
       tag.topic_count > 0
     end
 
-    def self.add_elasticsearch_single_info(index_name, record, user_id)
+    def self.add_elasticsearch_users(index_name, record, user_id)
       client = elasticsearch_index(index_name)
-      client.index  index: index_name, id: user_id, body: record
+      client.index index: index_name, id: user_id, body: record
     end
 
     def self.add_elasticsearch_posts(index_name, posts)
       client = elasticsearch_index(index_name)
-      client.index  index: index_name, body: posts
+      posts.each do |post|
+        client.index index: index_name, body: post
+      end
+    end
+
+    def self.add_elasticsearch_tags(index_name, tags)
+      client = elasticsearch_index(index_name)
+      tags.each do |tag|
+        client.index index: index_name, body: tag
+      end
     end
 
     def self.elasticsearch_index(index_name)
@@ -190,6 +199,15 @@ module DiscourseElasticsearch
       server_port = SiteSetting.elasticsearch_server_port
       client = Elasticsearch::Client.new url: "http://#{server_ip}:#{server_port}", log: true
       return client
+    end
+
+    def self.clean_indices(index_name)
+      client = elasticsearch_index(index_name)
+      if client.indices.exists? index: index_name
+        client.indices.delete index: index_name
+      else
+        puts "Indices #{index_name} doesn't exist..."
+      end
     end
 
     def self.guardian

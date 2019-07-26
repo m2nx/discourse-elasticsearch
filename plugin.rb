@@ -1,6 +1,6 @@
 # name: discourse-elasticsearch
 # about:
-# version: 0.1
+# version: 0.2
 # authors: imMMX
 # url: https://github.com/imMMX
 
@@ -15,7 +15,7 @@ gem 'elasticsearch', '7.2.0'
 register_asset "stylesheets/common/discourse-elasticsearch.scss"
 
 
-enabled_site_setting :discourse_elasticsearch_enabled
+enabled_site_setting :elasticsearch_enabled
 
 PLUGIN_NAME ||= "discourse-elasticsearch".freeze
 
