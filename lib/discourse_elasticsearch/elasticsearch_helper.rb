@@ -18,7 +18,7 @@ module DiscourseElasticsearch
       return if user.blank? || !guardian.can_see?(user)
 
       user_record = to_user_record(user)
-      add_elasticsearch_user(USERS_INDEX, user_record, user_id)
+      add_elasticsearch_single_info(USERS_INDEX, user_record, user_id)
     end
 
     def self.to_user_record(user)
@@ -166,7 +166,7 @@ module DiscourseElasticsearch
       tag_names.each do |tag_name|
         tag = Tag.find_by_name(tag_name)
         if tag && should_index_tag?(tag)
-          add_elasticsearch_user(TAGS_INDEX, to_tag_record(tag), tag.id)
+          add_elasticsearch_single_info(TAGS_INDEX, to_tag_record(tag), tag.id)
         end
       end
     end
@@ -175,7 +175,7 @@ module DiscourseElasticsearch
       tag.topic_count > 0
     end
 
-    def self.add_elasticsearch_user(index_name, record, user_id)
+    def self.add_elasticsearch_single_info(index_name, record, user_id)
       client = elasticsearch_index(index_name)
       client.index  index: index_name, id: user_id, body: record
     end
