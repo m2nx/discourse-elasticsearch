@@ -18,7 +18,7 @@ module DiscourseElasticsearch
       return if user.blank? || !guardian.can_see?(user)
 
       user_record = to_user_record(user)
-      add_elasticsearch_record(USERS_INDEX, user_record, user_id)
+      add_elasticsearch_user(USERS_INDEX, user_record, user_id)
     end
 
     def self.to_user_record(user)
@@ -50,7 +50,7 @@ module DiscourseElasticsearch
       post = Post.find_by(id: post_id)
       if should_index_post?(post)
         post_records = to_post_records(post)
-        add_elasticsearch_records(POSTS_INDEX, post_records)
+        add_elasticsearch_posts(POSTS_INDEX, post_records)
       end
     end
 
@@ -166,7 +166,7 @@ module DiscourseElasticsearch
       tag_names.each do |tag_name|
         tag = Tag.find_by_name(tag_name)
         if tag && should_index_tag?(tag)
-          add_elasticsearch_record(TAGS_INDEX, to_tag_record(tag), tag.id)
+          add_elasticsearch_user(TAGS_INDEX, to_tag_record(tag), tag.id)
         end
       end
     end
@@ -175,14 +175,14 @@ module DiscourseElasticsearch
       tag.topic_count > 0
     end
 
-    def self.add_elasticsearch_record(index_name, record, object_id)
+    def self.add_elasticsearch_user(index_name, record, user_id)
       client = elasticsearch_index(index_name)
-      client.index  index: 'myindex', type: 'mytype', id: 1, body: { title: 'Test' }
+      client.index  index: index_name, id: user_id, body: record
     end
 
-    def self.add_elasticsearch_records(index_name, records)
+    def self.add_elasticsearch_posts(index_name, posts)
       client = elasticsearch_index(index_name)
-      client.index  index: 'myindex', type: 'mytype', id: 1, body: { title: 'Test' }
+      client.index  index: index_name, body: posts
     end
 
     def self.elasticsearch_index(index_name)
