@@ -32,6 +32,11 @@ after_initialize do
     end
   end
 
+  require_dependency File.expand_path('../app/jobs/regular/update_elasticsearch_post.rb', __FILE__)
+  require_dependency File.expand_path('../app/jobs/regular/update_elasticsearch_user.rb', __FILE__)
+  require_dependency File.expand_path('../app/jobs/regular/update_elasticsearch_topic.rb', __FILE__)
+  require_dependency File.expand_path('../app/jobs/regular/update_elasticsearch_tag.rb', __FILE__)
+  require_dependency 'discourse_event'
 
   require_dependency "application_controller"
   class DiscourseElasticsearch::ActionsController < ::ApplicationController
@@ -52,4 +57,51 @@ after_initialize do
     mount ::DiscourseElasticsearch::Engine, at: "/discourse-elasticsearch"
   end
 
+  [:user_created, :user_updated].each do |discourse_event|
+    DiscourseEvent.on(discourse_event) do |user|
+      if SiteSetting.elasticsearch_enabled?
+        Jobs.enqueue_in(0,
+                        :update_elasticsearch_user,
+                        user_id: user.id,
+                        discourse_event: discourse_event
+        )
+      end
+    end
+  end
+
+  [:topic_created, :topic_edited, :topic_destroyed, :topic_recovered].each do |discourse_event|
+    DiscourseEvent.on(discourse_event) do |topic|
+      if SiteSetting.elasticsearch_enabled?
+        Jobs.enqueue_in(0,
+                        :update_elasticsearch_topic,
+                        topic_id: topic.id,
+                        discourse_event: discourse_event
+        )
+        Jobs.enqueue_in(0,
+                        :update_elasticsearch_tag,
+                        tags: topic.tags.map(&:name),
+                        discourse_event: discourse_event
+        )
+      end
+    end
+  end
+
+  [:post_created, :post_edited, :post_destroyed, :post_recovered].each do |discourse_event|
+    DiscourseEvent.on(discourse_event) do |post|
+      if SiteSetting.elasticsearch_enabled?
+        Jobs.enqueue_in(0,
+                        :update_elasticsearch_post,
+                        post_id: post.id,
+                        discourse_event: discourse_event
+        )
+        if post.topic
+          Jobs.enqueue_in(0,
+                          :update_elasticsearch_tag,
+                          tags: post.topic.tags.map(&:name),
+                          discourse_event: discourse_event
+          )
+        end
+      end
+    end
+  end
 end
