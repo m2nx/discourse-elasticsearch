@@ -11,6 +11,7 @@ gem 'elasticsearch-transport', '7.2.0'
 gem 'elasticsearch-api', '7.2.0'
 gem 'elasticsearch', '7.2.0'
 
+
 register_asset "stylesheets/common/discourse-elasticsearch.scss"
 
 
@@ -19,6 +20,7 @@ enabled_site_setting :discourse_elasticsearch_enabled
 PLUGIN_NAME ||= "discourse-elasticsearch".freeze
 
 after_initialize do
+  load File.expand_path('../lib/discourse_elasticsearch/elasticsearch_helper.rb', __FILE__)
 
   # see lib/plugin/instance.rb for the methods available in this context
 
