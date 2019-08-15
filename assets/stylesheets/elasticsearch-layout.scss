@@ -1,0 +1,175 @@
+.tt-dataset {
+  /*width: $es-dropdown-width;*/
+  .tt-dataset-users, .tt-dataset-posts {
+    display: table-cell;
+    vertical-align: top;
+  }
+  .tt-dataset-users {
+    width: $es-dropdown-right-panel-width;
+  }
+  .tt-dataset-posts {
+    width: $es-dropdown-left-panel-width;
+  }
+}
+
+.tt-dataset {
+  border-right: 1px solid $es-border-color;
+  background-color: #fff;
+  .tt-dataset-posts {
+    background-color: $es-background-color;
+  }
+  .tt-dataset-users {
+    border-left: 1px solid $es-border-color;
+    background-color: $es-panel-background-color;
+  }
+}
+.tt-dataset:first-child{
+  border-left: 1px solid $es-border-color;
+  flex-grow: 2;
+}
+
+/* suggestions */
+.hit-post-category-name:hover {
+  text-decoration: underline;
+}
+
+.hit-post-tag:hover {
+  text-decoration: underline;
+}
+
+.hit-post-username:hover {
+  text-decoration: underline;
+}
+
+.tt-dataset .tt-suggestion {
+  cursor: pointer;
+}
+
+.tt-dataset .tt-suggestion:focus,.tt-dataset .tt-suggestion:hover,.tt-dataset .tt-suggestion:active {
+  background-color: $es-cursor-color;
+}
+
+.tt-dataset .tt-suggestion em {
+  background-color: $es-highlight-background-color;
+  font-weight: bold;
+  font-style: normal;
+  font-weight: inherit;
+}
+
+.es-empty {
+  padding: 12px;
+  color: $es-light-font-color;
+}
+
+.es-dataset-users {
+  padding: 8px 12px;
+  .hit-user-left, .hit-user-right {
+    display: table-cell;
+    vertical-align: middle;
+  }
+  .hit-user-right {
+    padding-left: 8px;
+  }
+  .hit-user-username-holder {
+    margin-bottom: 3px;
+  }
+  .hit-user-username {
+    font-weight: bold;
+  }
+  .hit-user-name {
+    font-size: $es-small-font;
+    color: $es-light-font-color;
+  }
+  .hit-user-name, .hit-user-username-holder {
+    max-width: $es-dropdown-right-panel-width - 78px;
+    overflow: hidden;
+  }
+  .hit-user-avatar {
+    width: 45px;
+    height: 45px;
+    vertical-align: middle;
+    border-radius: 50%;
+  }
+  .hit-user-custom-ranking {
+    color: $es-light-font-color;
+    font-size: $es-small-font;
+  }
+  .hit-user-like-heart {
+    color: $es-heart-color;
+  }
+}
+
+.es-dataset-tags {
+  padding: 8px 12px;
+  .tt-suggestion {
+    border-top: 1px solid $es-border-color;
+  }
+  .hit-tag:focus, .hit-tag:active{
+    background-color: #f8f9fc;
+  }
+  .hit-tag-name {
+    font-weight: bold;
+  }
+  .hit-tag-topic_count {
+    color: $es-light-font-color;
+    font-size: $es-small-font;
+  }
+}
+
+.es-dataset-posts {
+    padding: 12px;
+    &:last-child {
+      border-bottom: none;
+  }
+  .hit-post {
+    .hit-post-topic-title {
+      font-size: $es-large-font;
+      font-weight: bold;
+    }
+    .hit-post-topic-views {
+      font-size: $es-small-font;
+      color: $es-light-font-color;
+    }
+    .hit-post-category-tags {
+      margin: 2px 0 4px;
+    }
+    .hit-post-tag {
+      color: $es-light-font-color;
+      font-size: $es-small-font;
+      padding: 0 3px;
+    }
+    .hit-post-category-name {
+      color: $es-dark-font-color;
+      font-size: $es-normal-font;
+      font-weight: normal;
+    }
+    .hit-post-content-holder {
+      color: $es-light-font-color;
+      font-size: $es-small-font;
+    }
+    .hit-post-content {
+      word-break: break-word;
+      font-size: $es-small-font;
+    }
+  }
+}
+.tt-dataset-posts > .es-dataset-posts:nth-last-of-type(2){
+  margin-bottom: 20px;
+}
+.tt-dataset-posts .show-more {
+  padding: 5px;
+  border-bottom: 1px solid $es-border-color;
+  width: 98%;
+  position: absolute;
+  bottom: 0;
+}
+.tt-menu{
+  right: 0!important;
+  width: 600px;
+}
+.Typeahead-spinner{
+  position: absolute;
+  left: 280px;
+  top: 10px;
+  display: none;
+}

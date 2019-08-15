@@ -12,8 +12,10 @@ gem 'elasticsearch-api', '7.2.0'
 gem 'elasticsearch', '7.2.0'
 
 
-register_asset "stylesheets/common/discourse-elasticsearch.scss"
-
+register_asset 'stylesheets/variables.scss'
+register_asset 'stylesheets/elasticsearch-base.scss'
+register_asset 'stylesheets/elasticsearch-layout.scss'
+register_asset 'lib/typehead.bundle.js'
 
 enabled_site_setting :elasticsearch_enabled
 

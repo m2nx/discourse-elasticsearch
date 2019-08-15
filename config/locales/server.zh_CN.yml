@@ -1,0 +1,7 @@
+zh_CN:
+  site_settings:
+    elasticsearch_enabled: "启用 discourse-elasticsearch 插件"
+    elasticsearch_autocomplete_enabled: "启用自动补全搜索结果"
+    elasticsearch_server_ip: "elasticsearch 服务器 ip 地址"
+    elasticsearch_server_port: "elasticsearch 服务器端口"
+    elasticsearch_discourse_username: "discourse 用户名"
