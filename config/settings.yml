@@ -3,7 +3,7 @@ plugins:
     default: true
     client: true
   elasticsearch_autocomplete_enabled:
-    default: false
+    default: true
     client: true
   elasticsearch_server_ip:
     default: 'localhost'

@@ -1,6 +1,6 @@
 en:
   site_settings:
-    elasticsearch_enabled: "Enable discourse-elasticsearch plugin test 123"
+    elasticsearch_enabled: "Enable discourse-elasticsearch plugin"
     elasticsearch_autocomplete_enabled: "auto complete js"
     elasticsearch_server_ip: "elasticsearch server ip address"
     elasticsearch_server_port: "elasticsearch server port"

@@ -1,0 +1,22 @@
+$es-blue: rgb(0,174,255);
+$titan-white: rgb(248,250,255);
+$athens-gray: rgb(238, 240, 247);
+$ghost: rgb(196, 200, 216);
+
+$es-large-font: 15px;
+$es-normal-font: 13px;
+$es-small-font: 11.5px;
+
+$es-dark-font-color: #222;
+$es-light-font-color: #919191;
+$es-heart-color: #fa6c8d;
+
+$es-dropdown-left-panel-width: 450px;
+$es-dropdown-right-panel-width: 225px;
+$es-dropdown-width: 675px;
+
+$es-cursor-color: $athens-gray;
+$es-background-color: lighten($titan-white, 1%);
+$es-panel-background-color: lighten($athens-gray, 3%);
+$es-border-color: lighten($ghost, 10%);
+$es-highlight-background-color: lighten($es-blue, 40%);
