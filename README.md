@@ -1,6 +1,6 @@
 # discourse-elasticsearch
 
-discourse-elasticsearch is a plugin for elasticsearch
+discourse-elasticsearch is a plugin for elasticsearch forked from [discourse-algolia](https://github.com/discourse/discourse-algolia)
 
 ## Installation
 
