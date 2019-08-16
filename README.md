@@ -9,6 +9,7 @@ Follow [Install a Plugin](https://meta.discourse.org/t/install-a-plugin/19157)
 Installation
 Add this repository's git clone url to your container's app.yml file, at the bottom of the cmd section:
 
+```yml
 hooks:
   after_code:
     - exec:
@@ -16,6 +17,7 @@ hooks:
         cmd:
           - mkdir -p plugins
           - git clone https://github.com/imMMX/discourse-elasticsearch.git
+```
           
 
 Rebuild your container:
