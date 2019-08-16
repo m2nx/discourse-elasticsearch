@@ -28,6 +28,20 @@ git pull
 ./launcher rebuild app
 ```
 
+Then you need install a elasticsearch(version 7.2.0) server, here's a docker example:
+
+```
+docker run -p 5601:5601 -p 9200:9200 -p 5044:5044 -it --name elk --restart=always -d elk:7.2.0
+```
+
+
+Install elk chinese plugin:
+
+```
+docker exec -it elk bash
+./bin/elasticsearch-plugin install -b https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v7.2.0/elasticsearch-analysis-ik-7.2.0.zip
+```
+
 ## Configuration
 
 Once you've installed the plugin and restarted your Discourse, you will see a new plugin available in your admin configuration. Click the Settings button next to the discourse-elasticsearch plugin.
