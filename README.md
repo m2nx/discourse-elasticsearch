@@ -53,7 +53,7 @@ You can now index all of your forum's content. Run the following rake task in yo
 ```
 ./launcher enter app
 su discourse
-LOAD_PLUGINS=1 bundle exec rails algolia:initialize
+LOAD_PLUGINS=1 bundle exec rails elasticsearch:initialize
 ```
 This will create and configure three indices - discourse-users, discourse-posts, and discourse-tags - and then populate them by loading data from your database and sending it to Elasticsearch. 
 
