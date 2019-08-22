@@ -14,6 +14,7 @@
 
 .tt-dataset {
   border-right: 1px solid $es-border-color;
+  border-bottom: 1px solid $es-border-color;
   background-color: #fff;
   .tt-dataset-posts {
     background-color: $es-background-color;
@@ -81,7 +82,7 @@
     color: $es-light-font-color;
   }
   .hit-user-name, .hit-user-username-holder {
-    max-width: $es-dropdown-right-panel-width - 78px;
+    min-width: 100px;
     overflow: hidden;
   }
   .hit-user-avatar {
@@ -159,7 +160,7 @@
 .tt-dataset-posts .show-more {
   padding: 5px;
   border-bottom: 1px solid $es-border-color;
-  width: 98%;
+  width: 50%;
   position: absolute;
   bottom: 0;
 }

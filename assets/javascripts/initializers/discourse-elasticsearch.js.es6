@@ -11,11 +11,11 @@ function elasticsearch(api){
         @on("didInsertElement")
         initializeElk() {
           this._super();
-          var elasticsearch_address = this.siteSettings.elasticsearch_server_ip + ":" + this.siteSettings.elasticsearch_server_port + "/_search";
+          var elasticsearch_address = this.siteSettings.elasticsearch_server_ip + ":" + this.siteSettings.elasticsearch_server_port;
           if (this.siteSettings.elasticsearch_enabled) {
             $("body").addClass("elasticsearch-enabled");
             if (!this.siteSettings.elasticsearch_server_port) {
-              elasticsearch_address = this.siteSettings.elasticsearch_server_ip + "/_search";            	
+              elasticsearch_address = this.siteSettings.elasticsearch_server_ip;            	
             }
             setTimeout(() => {
               discourseAutocomplete._initialize({
