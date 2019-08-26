@@ -1,10 +1,10 @@
 .tt-dataset {
   /*width: $es-dropdown-width;*/
-  .tt-dataset-users, .tt-dataset-posts {
+  .tt-dataset-users-tags, .tt-dataset-posts {
     display: table-cell;
     vertical-align: top;
   }
-  .tt-dataset-users {
+  .tt-dataset-users-tags {
     width: $es-dropdown-right-panel-width;
   }
   .tt-dataset-posts {
@@ -19,9 +19,9 @@
   .tt-dataset-posts {
     background-color: $es-background-color;
   }
-  .tt-dataset-users {
+  .tt-dataset-users-tags {
     border-left: 1px solid $es-border-color;
-    background-color: $es-panel-background-color;
+    background-color: #f8f9fc;
   }
 }
 .tt-dataset:first-child{
@@ -156,6 +156,9 @@
 }
 .tt-dataset-posts > .es-dataset-posts:nth-last-of-type(2){
   margin-bottom: 20px;
+}
+.tt-dataset-users-tags {
+  background-color: #f8f9fc;
 }
 .tt-dataset-posts .show-more {
   padding: 5px;
