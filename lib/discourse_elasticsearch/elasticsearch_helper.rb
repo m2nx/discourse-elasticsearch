@@ -123,7 +123,7 @@ module DiscourseElasticsearch
 
         topic = post.topic
         if topic
-          clean_title = topic.title.gsub(/[^\u1F600-\u1F6FF\s]/i, '')
+          clean_title = topic.title
           record[:topic] = {
             id: topic.id,
             url: "/t/#{topic.slug}/#{topic.id}",
