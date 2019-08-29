@@ -159,6 +159,7 @@
 }
 .tt-dataset-users-tags {
   background-color: #f8f9fc;
+  min-width: 170px;
 }
 .tt-dataset-posts .show-more {
   padding: 5px;
@@ -170,6 +171,9 @@
 .tt-menu{
   right: 0!important;
   width: 600px;
+}
+.tt-highlight{
+  background-color: #CCEFFF;
 }
 .Typeahead-spinner{
   position: absolute;

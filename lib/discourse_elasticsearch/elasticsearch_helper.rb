@@ -212,38 +212,33 @@ module DiscourseElasticsearch
 
     def self.create_mapping
       client = elasticsearch_index
-      client.indices.put_mapping index: discourse-users, type: 'text', body: {
-        "properties": {
-          "title": {
-            "type": "text",
-            "analyzer": "ik_max_word",
-            "search_analyzer": "ik_smart"
-          }
-        }
-      }
-      client.indices.put_mapping index: discourse-posts, type: 'text', body: {
-        "properties": {
-          "title": {
-            "type": "text",
-            "analyzer": "ik_max_word",
-            "search_analyzer": "ik_smart"
-          },
-          "content": {
-            "type": "text",
-            "analyzer": "ik_max_word",
-            "search_analyzer": "ik_smart"
-          }
-        }
-      }
-      client.indices.put_mapping index: discourse-tags, type: 'text', body: {
-        "properties": {
-          "name": {
-            "type": "text",
-            "analyzer": "ik_max_word",
-            "search_analyzer": "ik_smart"
-          }
-        }
-      }
+      client.indices.create index: 'discourse-users',
+                            body: {
+                              mappings: {
+                                properties: {
+                                  title: { type: 'text', analyzer: 'ik_max_word', "search_analyzer": "ik_smart" }
+                                }
+                              }
+                            }
+
+      client.indices.create index: 'discourse-posts',
+                            body: {
+                              mappings: {
+                                properties: {
+                                  title: { type: 'text', analyzer: 'ik_max_word', "search_analyzer": "ik_smart" },
+                                  content: { type: 'text', analyzer: 'ik_max_word', "search_analyzer": "ik_smart" }
+                                }
+                              }
+                            }
+
+      client.indices.create index: 'discourse-tags',
+                            body: {
+                              mappings: {
+                                properties: {
+                                  name: { type: 'text', analyzer: 'ik_max_word', "search_analyzer": "ik_smart" }
+                                }
+                              }
+                            }
     end
 
     def self.guardian

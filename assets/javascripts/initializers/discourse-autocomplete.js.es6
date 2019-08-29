@@ -9,20 +9,9 @@ export default {
       $('.Typeahead-spinner').css("left","390px");
     }
     // ajax function
-    var callES = function(ESUrl){
+    var callES = function(ESUrl,json){
       //Get text from the input field
-      var text = $('#search-box').val(),
-      //ES Query
-          json = {
-                  "query":{
-                      "multi_match":
-                      {"query":text,
-                       "fields":[],
-                       "type":"best_fields"
-                      }
-                  }
-              },
-          data        =   json,
+      var data        =   json,
           formatType  =   "json",
           type        =   "post",     
           contentType =   "application/json; charset=utf-8";
@@ -47,9 +36,19 @@ export default {
 
     //discourse-posts source org
     var discoursePosts = function(query, processSync, processAsync){
-      var url         =   options.elasticsearch_address + "/discourse-posts/_search";
+      var url  = options.elasticsearch_address + "/discourse-posts/_search",
+          text = $('#search-box').val(),
+          json = {
+                  "query":{
+                      "multi_match":
+                      {"query":text,
+                       "fields":["content","topic.title"],
+                       "type":"best_fields"
+                      }
+                  }
+              };
 
-      return callES(url).then(function(rs){
+      return callES(url,json).then(function(rs){
                 var dfd = $.Deferred();
                 var results = $.map([0], function() {     
 
@@ -98,9 +97,19 @@ export default {
 
     //discourse-users source org
     var discourseUsers = function(query, processSync, processAsync){
-      var url         =   options.elasticsearch_address + "/discourse-users/_search";
+      var url  = options.elasticsearch_address + "/discourse-users/_search",
+          text = $('#search-box').val(),
+          json = {
+                  "query":{
+                      "multi_match":
+                      {"query":text,
+                       "fields":["url","name","username"],
+                       "type":"best_fields"
+                      }
+                  }
+              };
 
-      return callES(url).then(function(rs){
+      return callES(url,json).then(function(rs){
                 var dfd = $.Deferred();
                 var results = $.map([0], function() {     
 
@@ -134,9 +143,19 @@ export default {
 
     //discourse-tags source org
     var discourseTags = function(query, processSync, processAsync){
-      var url         =   options.elasticsearch_address + "/discourse-tags/_search";
+      var url  = options.elasticsearch_address + "/discourse-tags/_search",
+          text = $('#search-box').val(),
+          json = {
+                  "query":{
+                      "multi_match":
+                      {"query":text,
+                       "fields":["url","name"],
+                       "type":"best_fields"
+                      }
+                  }
+              };
 
-      return callES(url).then(function(rs){
+      return callES(url,json).then(function(rs){
                 var dfd = $.Deferred();
                 var results = $.map([0], function() {     
 
@@ -279,6 +298,7 @@ export default {
         $('.Typeahead-spinner').hide();
     }).on({
         'typeahead:render': function (event, datum) {
+          console.log(Array.prototype.slice.call(arguments, 1)[0]);
 
           if (datum.length > 0 && Array.prototype.slice.call(arguments, 1)[2] == 'emp') {
             $('.tt-dataset-users-tags').delay(500).queue(function (next) {
