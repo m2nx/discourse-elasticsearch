@@ -176,38 +176,74 @@ module DiscourseElasticsearch
     end
 
     def self.add_elasticsearch_users(index_name, record, user_id)
-      client = elasticsearch_index(index_name)
+      client = elasticsearch_index
       client.index index: index_name, id: user_id, body: record
     end
 
     def self.add_elasticsearch_posts(index_name, posts)
-      client = elasticsearch_index(index_name)
+      client = elasticsearch_index
       posts.each do |post|
         client.index index: index_name, body: post
       end
     end
 
     def self.add_elasticsearch_tags(index_name, tags)
-      client = elasticsearch_index(index_name)
+      client = elasticsearch_index
       tags.each do |tag|
         client.index index: index_name, body: tag
       end
     end
 
-    def self.elasticsearch_index(index_name)
+    def self.elasticsearch_index
       server_ip = SiteSetting.elasticsearch_server_ip
       server_port = SiteSetting.elasticsearch_server_port
-      client = Elasticsearch::Client.new url: "http://#{server_ip}:#{server_port}", log: true
+      client = Elasticsearch::Client.new url: "#{server_ip}:#{server_port}", log: true
       return client
     end
 
     def self.clean_indices(index_name)
-      client = elasticsearch_index(index_name)
+      client = elasticsearch_index
       if client.indices.exists? index: index_name
         client.indices.delete index: index_name
       else
         puts "Indices #{index_name} doesn't exist..."
       end
+    end
+
+    def self.create_mapping
+      client = elasticsearch_index
+      client.indices.put_mapping index: discourse-users, type: 'text', body: {
+        "properties": {
+          "title": {
+            "type": "text",
+            "analyzer": "ik_max_word",
+            "search_analyzer": "ik_smart"
+          }
+        }
+      }
+      client.indices.put_mapping index: discourse-posts, type: 'text', body: {
+        "properties": {
+          "title": {
+            "type": "text",
+            "analyzer": "ik_max_word",
+            "search_analyzer": "ik_smart"
+          },
+          "content": {
+            "type": "text",
+            "analyzer": "ik_max_word",
+            "search_analyzer": "ik_smart"
+          }
+        }
+      }
+      client.indices.put_mapping index: discourse-tags, type: 'text', body: {
+        "properties": {
+          "name": {
+            "type": "text",
+            "analyzer": "ik_max_word",
+            "search_analyzer": "ik_smart"
+          }
+        }
+      }
     end
 
     def self.guardian

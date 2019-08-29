@@ -9,6 +9,7 @@ task "elasticsearch:configure" => :environment do
   elasticsearch_configure_users
   elasticsearch_configure_posts
   elasticsearch_configure_tags
+  elasticsearch_configure_map
 end
 
 desc "reindex everything to elasticsearch"
@@ -49,6 +50,11 @@ def elasticsearch_configure_tags
   puts "[Starting] Cleaning tags index to Elasticsearch"
   DiscourseElasticsearch::ElasticsearchHelper.clean_indices(DiscourseElasticsearch::ElasticsearchHelper::TAGS_INDEX)
   puts "[Finished] Successfully configured tags index in Elasticsearch"
+end
+
+def elasticsearch_configure_map
+  puts "[Starting] Creating mapping to Elasticsearch"
+  DiscourseElasticsearch::ElasticsearchHelper.create_mapping
 end
 
 def elasticsearch_reindex_users
