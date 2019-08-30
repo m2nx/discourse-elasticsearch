@@ -216,9 +216,9 @@ module DiscourseElasticsearch
                             body: {
                               mappings: {
                                 properties: {
-                                  name: { type: 'text', analyzer: 'ik_max_word', "search_analyzer": "ik_smart" },
-                                  url: { type: 'text', analyzer: 'ik_max_word', "search_analyzer": "ik_smart" },
-                                  username: { type: 'text', analyzer: 'ik_max_word', "search_analyzer": "ik_smart" }
+                                  name: { type: 'text', analyzer: 'ik_max_word', search_analyzer: "ik_smart" },
+                                  url: { type: 'text', analyzer: 'ik_max_word', search_analyzer: "ik_smart" },
+                                  username: { type: 'text', analyzer: 'ik_max_word', search_analyzer: "ik_smart" }
                                   }
                               }
                             }
@@ -228,11 +228,9 @@ module DiscourseElasticsearch
                               mappings: {
                                 properties: {
                                   topic: {
-                                    title:{
-                                      type: 'text', analyzer: 'ik_max_word', "search_analyzer": "ik_smart"
-                                    }
+                                    type: 'text', analyzer: 'ik_max_word', search_analyzer: "ik_smart"
                                   },
-                                  content: { type: 'text', analyzer: 'ik_max_word', "search_analyzer": "ik_smart" }
+                                  content: { type: 'text', analyzer: 'ik_max_word', search_analyzer: "ik_smart" }
                                 }
                               }
                             }
@@ -241,8 +239,8 @@ module DiscourseElasticsearch
                             body: {
                               mappings: {
                                 properties: {
-                                  name: { type: 'text', analyzer: 'ik_max_word', "search_analyzer": "ik_smart" },
-                                  url: { type: 'text', analyzer: 'ik_max_word', "search_analyzer": "ik_smart" }
+                                  name: { type: 'text', analyzer: 'ik_max_word', search_analyzer: "ik_smart" },
+                                  url: { type: 'text', analyzer: 'ik_max_word', search_analyzer: "ik_smart" }
                                 }
                               }
                             }
