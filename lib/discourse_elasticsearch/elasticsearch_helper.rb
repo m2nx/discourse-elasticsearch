@@ -228,7 +228,9 @@ module DiscourseElasticsearch
                               mappings: {
                                 properties: {
                                   topic: {
-                                    type: 'text', analyzer: 'ik_max_word', search_analyzer: "ik_smart"
+                                    properties: {
+                                      title: { type: 'text', analyzer: 'ik_max_word', search_analyzer: "ik_smart" }
+                                    }
                                   },
                                   content: { type: 'text', analyzer: 'ik_max_word', search_analyzer: "ik_smart" }
                                 }
